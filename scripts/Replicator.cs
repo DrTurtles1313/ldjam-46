@@ -17,10 +17,11 @@ public class Replicator : MainSystem
         switch (state)
         {
             case MainSystemState.Idle:
+                GetNode<Storage>("..Storage").AddFood(1);
                 break;
 
             case MainSystemState.Active:
-                GetNode<Storage>("../Storage").AddFood();
+                GetNode<Storage>("../Storage").AddFood(2);
                 break;
 
             case MainSystemState.Disabled:

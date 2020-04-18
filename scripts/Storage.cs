@@ -5,6 +5,9 @@ public class Storage : Node2D
 {
     public int size = 50;
     private List<int> storage = new List<int>();
+    public int food = 0;
+    public int fuel = 0;
+    public int parts = 0;
 
     public bool AddParts(int amount)
     {
@@ -13,6 +16,7 @@ public class Storage : Node2D
             for (int i = 0; i < amount; i++)
             {
                 storage.Add(0);
+                parts++;
             }
             return true;
         }
@@ -29,6 +33,7 @@ public class Storage : Node2D
             for (int i = 0; i < amount; i++)
             {
                 storage.Add(1);
+                food++;
             }
             return true;
         }
@@ -45,6 +50,7 @@ public class Storage : Node2D
             for (int i = 0; i < amount; i++)
             {
                 storage.Add(2);
+                fuel++;
             }
             return true;
         }
@@ -61,6 +67,7 @@ public class Storage : Node2D
             for (int i = 0; i < amount; i++)
             {
                 storage.Remove(0);
+                parts--;
             }
             return true;
         }
@@ -77,6 +84,7 @@ public class Storage : Node2D
             for (int i = 0; i < amount; i++)
             {
                 storage.Remove(1);
+                food--;
             }
             return true;
         }
@@ -93,6 +101,7 @@ public class Storage : Node2D
             for (int i = 0; i < amount; i++)
             {
                 storage.Remove(2);
+                fuel--;
             }
             return true;
         }

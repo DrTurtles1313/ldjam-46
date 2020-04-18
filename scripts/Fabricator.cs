@@ -20,7 +20,7 @@ public class Fabricator : MainSystem
                 break;
 
             case MainSystemState.Active:
-                GetNode<Storage>("../Storage").AddParts();
+                GetNode<Storage>("../Storage").AddParts(2);
                 break;
 
             case MainSystemState.Disabled:
