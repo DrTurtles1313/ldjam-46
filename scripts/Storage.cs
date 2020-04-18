@@ -6,11 +6,14 @@ public class Storage : Node2D
     public int size = 50;
     private List<int> storage = new List<int>();
 
-    public bool AddParts()
+    public bool AddParts(int amount)
     {
-        if (storage.Count < size)
+        if (storage.Count + amount < size)
         {
-            storage.Add(0);
+            for (int i = 0; i < amount; i++)
+            {
+                storage.Add(0);
+            }
             return true;
         }
         else
@@ -19,11 +22,14 @@ public class Storage : Node2D
         }
     }
 
-    public bool AddFood()
+    public bool AddFood(int amount)
     {
-        if (storage.Count < size)
+        if (storage.Count + amount < size)
         {
-            storage.Add(1);
+            for (int i = 0; i < amount; i++)
+            {
+                storage.Add(1);
+            }
             return true;
         }
         else
@@ -32,11 +38,14 @@ public class Storage : Node2D
         }
     }
 
-    public bool AddFuel()
+    public bool AddFuel(int amount)
     {
-        if (storage.Count < size)
+        if (storage.Count + amount < size)
         {
-            storage.Add(1);
+            for (int i = 0; i < amount; i++)
+            {
+                storage.Add(2);
+            }
             return true;
         }
         else
@@ -45,11 +54,14 @@ public class Storage : Node2D
         }
     }
 
-    public bool RemoveParts()
+    public bool RemoveParts(int amount)
     {
-        if (storage.Count < size)
+        if (storage.Contains(0))
         {
-            storage.Remove(0);
+            for (int i = 0; i < amount; i++)
+            {
+                storage.Remove(0);
+            }
             return true;
         }
         else
@@ -58,11 +70,14 @@ public class Storage : Node2D
         }
     }
 
-    public bool RemoveFood()
+    public bool RemoveFood(int amount)
     {
-        if (storage.Count < size)
+        if (storage.Contains(1))
         {
-            storage.Remove(1);
+            for (int i = 0; i < amount; i++)
+            {
+                storage.Remove(1);
+            }
             return true;
         }
         else
@@ -71,11 +86,14 @@ public class Storage : Node2D
         }
     }
 
-    public bool RemoveFuel()
+    public bool RemoveFuel(int amount)
     {
-        if (storage.Count < size)
+        if (storage.Contains(2))
         {
-            storage.Remove(2);
+            for (int i = 0; i < amount; i++)
+            {
+                storage.Remove(2);
+            }
             return true;
         }
         else
