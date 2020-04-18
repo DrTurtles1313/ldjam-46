@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/Tick.cs" type="Script" id=1]
 [ext_resource path="res://scripts/MainSystems/Fabricator.cs" type="Script" id=2]
@@ -10,6 +10,9 @@
 [ext_resource path="res://icon.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 100, 100 )
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 35, 35 )
 
 [node name="Node2D" type="Node2D"]
@@ -22,7 +25,26 @@ script = ExtResource( 6 )
 [node name="Replicator" type="Node2D" parent="." groups=[
 "MainSystems",
 ]]
+position = Vector2( 105.472, 74.4128 )
 script = ExtResource( 4 )
+
+[node name="Button" type="Button" parent="Replicator"]
+margin_left = -30.0
+margin_top = -30.0
+margin_right = 31.0
+margin_bottom = 31.0
+action_mode = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="icon" type="Sprite" parent="Replicator"]
+texture = ExtResource( 8 )
+
+[node name="Area2D" type="Area2D" parent="Replicator"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Replicator/Area2D"]
+shape = SubResource( 1 )
 
 [node name="Scoop" type="Node2D" parent="." groups=[
 "MainSystems",
@@ -44,19 +66,19 @@ script = ExtResource( 1 )
 wait_time = 5.0
 autostart = true
 
-[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+[node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 286.651, 73.1186 )
 script = ExtResource( 7 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-shape = SubResource( 1 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
+[node name="Sprite" type="Sprite" parent="Player"]
 texture = ExtResource( 8 )
 
-[node name="Camera2D" type="Camera2D" parent="KinematicBody2D"]
+[node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
-
-[node name="icon" type="Sprite" parent="."]
-position = Vector2( 149.211, 57.1717 )
-texture = ExtResource( 8 )
+[connection signal="pressed" from="Replicator/Button" to="Player" method="OnReplicatorInteract"]
+[connection signal="body_entered" from="Replicator/Area2D" to="Player" method="ReplicatorRoomEntered"]
+[connection signal="body_exited" from="Replicator/Area2D" to="Player" method="ReplicatorRoomExited"]
 [connection signal="timeout" from="TickManager/Timer" to="TickManager" method="OnTimerTimeout"]
