@@ -1,11 +1,16 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/Tick.cs" type="Script" id=1]
-[ext_resource path="res://scripts/Fabricator.cs" type="Script" id=2]
+[ext_resource path="res://scripts/MainSystems/Fabricator.cs" type="Script" id=2]
 [ext_resource path="res://scripts/Storage.cs" type="Script" id=3]
-[ext_resource path="res://scripts/Replicator.cs" type="Script" id=4]
-[ext_resource path="res://scripts/Scoop.cs" type="Script" id=5]
-[ext_resource path="res://scripts/Generator.cs" type="Script" id=6]
+[ext_resource path="res://scripts/MainSystems/Replicator.cs" type="Script" id=4]
+[ext_resource path="res://scripts/MainSystems/Scoop.cs" type="Script" id=5]
+[ext_resource path="res://scripts/MainSystems/Generator.cs" type="Script" id=6]
+[ext_resource path="res://scripts/PlayerController.cs" type="Script" id=7]
+[ext_resource path="res://icon.png" type="Texture" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 35, 35 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -38,4 +43,20 @@ script = ExtResource( 1 )
 [node name="Timer" type="Timer" parent="TickManager"]
 wait_time = 5.0
 autostart = true
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
+texture = ExtResource( 8 )
+
+[node name="Camera2D" type="Camera2D" parent="KinematicBody2D"]
+current = true
+
+[node name="icon" type="Sprite" parent="."]
+position = Vector2( 149.211, 57.1717 )
+texture = ExtResource( 8 )
 [connection signal="timeout" from="TickManager/Timer" to="TickManager" method="OnTimerTimeout"]

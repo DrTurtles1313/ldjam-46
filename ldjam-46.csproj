@@ -54,11 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="scripts\Fabricator.cs" />
-    <Compile Include="scripts\Generator.cs" />
-    <Compile Include="scripts\MainSystem.cs" />
-    <Compile Include="scripts\Replicator.cs" />
-    <Compile Include="scripts\Scoop.cs" />
+    <Compile Include="scripts\MainSystems\Fabricator.cs" />
+    <Compile Include="scripts\MainSystems\Generator.cs" />
+    <Compile Include="scripts\MainSystems\Replicator.cs" />
+    <Compile Include="scripts\MainSystems\MainSystem.cs" />
+    <Compile Include="scripts\MainSystems\Scoop.cs" />
+    <Compile Include="scripts\PlayerController.cs" />
     <Compile Include="scripts\Storage.cs" />
     <Compile Include="scripts\Tick.cs" />
   </ItemGroup>
