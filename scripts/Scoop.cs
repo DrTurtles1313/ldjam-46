@@ -3,10 +3,14 @@ using System;
 
 public class Scoop : MainSystem
 {
-    public MainSystemState state = MainSystemState.Idle;
+    public override int idlePowerConsumption {get; set;}
+    public override int activePowerConsumption {get; set;}
 
-    public int idlePowerConsumption = 3;
-    public int activePowerConsumption = 5;
+    public override void _Ready()
+    {
+        idlePowerConsumption = 3;
+        activePowerConsumption = 4;
+    }
 
     public void Tick()
     {

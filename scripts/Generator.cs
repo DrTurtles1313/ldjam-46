@@ -3,7 +3,8 @@ using System;
 
 public class Generator : MainSystem
 {
-    public MainSystemState state = MainSystemState.Idle;
+    public override int idlePowerConsumption {get; set;}
+    public override int activePowerConsumption {get; set;}
 
     public float efficiency = 1f;
 
@@ -18,7 +19,6 @@ public class Generator : MainSystem
 
     public void Tick()
     {
-        CalculateRemainingPower();
         switch (state)
         {
             case MainSystemState.Idle:
@@ -51,5 +51,6 @@ public class Generator : MainSystem
         }
 
         remainingPower = maxPower - powerConsumption;
+        GD.Print(powerConsumption, ", ", remainingPower, "/", maxPower);
     }
 }
