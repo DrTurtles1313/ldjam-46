@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Fabricator : MainSystem
+public class Scoop : MainSystem
 {
     public MainSystemState state = MainSystemState.Idle;
 
@@ -13,10 +13,11 @@ public class Fabricator : MainSystem
         switch (state)
         {
             case MainSystemState.Idle:
+                GetNode<Storage>("../Storage").AddFuel();
                 break;
 
             case MainSystemState.Active:
-                GetNode<Storage>("../Storage").AddParts();
+                GetNode<Storage>("../Storage").AddFuel();
                 break;
 
             case MainSystemState.Disabled:

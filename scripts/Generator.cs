@@ -1,34 +1,55 @@
 using Godot;
 using System;
 
-public class Generator : Node2D
+public class Generator : MainSystem
 {
-    public MainSystemState state = MainSystemState.Active;
+    public MainSystemState state = MainSystemState.Idle;
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        
-    }
+    public float efficiency = 1f;
+
+    public float activeBoost = 1.5f;
+    public int basePower = 10;
+
+    public int remainingPower;
+    public int maxPower = 10;
+
+    public int baseFuelConsumption = 1;
+    public int activeFuelConsumption = 3;
 
     public void Tick()
     {
+        CalculateRemainingPower();
         switch (state)
         {
             case MainSystemState.Idle:
+                maxPower = (int)(basePower * efficiency);
                 break;
 
             case MainSystemState.Active:
+                maxPower = (int)(basePower * efficiency * activeBoost);
                 break;
 
             case MainSystemState.Disabled:
                 break;
+
+            case MainSystemState.Broken:
+                break;
         }
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+    public override int GetPowerConsumption()
+    {
+        return 0;
+    }
+
+    public void CalculateRemainingPower()
+    {
+        int powerConsumption = 0;
+        foreach (MainSystem e in GetTree().GetNodesInGroup("MainSystems"))
+        {
+            powerConsumption += e.GetPowerConsumption();          
+        }
+
+        remainingPower = maxPower - powerConsumption;
+    }
 }

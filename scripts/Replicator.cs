@@ -1,18 +1,12 @@
 using Godot;
 using System;
 
-public class Replicator : Node2D
+public class Replicator : MainSystem
 {
-    public MainSystemState state = MainSystemState.Active;
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
-
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        
-    }
+    public MainSystemState state = MainSystemState.Idle;
+    
+    public int idlePowerConsumption = 3;
+    public int activePowerConsumption = 5;
 
     public void Tick()
     {
@@ -30,9 +24,18 @@ public class Replicator : Node2D
         }
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+    public override int GetPowerConsumption()
+    {
+        switch (state)
+        {
+            case MainSystemState.Idle:
+                return idlePowerConsumption;
+            case MainSystemState.Active:
+                return activePowerConsumption;
+            case MainSystemState.Broken:
+            case MainSystemState.Disabled:
+                return 0;
+        }
+        return 0;
+    }
 }
