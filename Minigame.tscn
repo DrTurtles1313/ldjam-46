@@ -1,24 +1,95 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://scripts/minigames/Minigame.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
 
 [node name="Minigame" type="Control"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-texture = ExtResource( 2 )
+[node name="Minigame(L6)" type="CanvasLayer" parent="."]
+layer = 6
+__meta__ = {
+"_editor_description_": "On layer 6, highest layer so far, minigames."
+}
+
+[node name="Popup" type="PopupPanel" parent="Minigame(L6)"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -240.0
+margin_top = -175.937
+margin_right = 267.0
+margin_bottom = 192.063
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Minigame(L6)/Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Minigame(L6)/Popup/VBoxContainer"]
+margin_right = 507.0
+margin_bottom = 65.0
+text = "This is a test minigame. 
+
+Press the WIN button to win, and click outside of the minigame area to get out of the minigame. "
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WinButton" type="Button" parent="Minigame(L6)/Popup/VBoxContainer"]
+margin_top = 69.0
+margin_right = 507.0
+margin_bottom = 89.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Minigame(L6)/Popup/VBoxContainer/WinButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -7.0
+margin_right = 20.0
+margin_bottom = 7.0
+text = "WIN"
+align = 1
+
+[node name="Fade" type="Tween" parent="."]
+
+[node name="BGs(L3)" type="CanvasLayer" parent="."]
+layer = 3
+__meta__ = {
+"_editor_description_": "On Layer 3, above macro-game, below minigames."
+}
+
+[node name="BG" type="ColorRect" parent="BGs(L3)"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.74438
+margin_top = 3.78824
+margin_right = -1.74438
+margin_bottom = 3.78821
+color = Color( 0.447059, 0.447059, 0.447059, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Minigame(L6)/Popup/VBoxContainer/WinButton" to="." method="WinButtonPressed"]
+[connection signal="tween_all_completed" from="Fade" to="." method="FadeAllComplete"]
+[connection signal="gui_input" from="BGs(L3)/BG" to="." method="BG_gui_input"]
