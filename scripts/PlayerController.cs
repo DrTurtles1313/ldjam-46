@@ -36,6 +36,9 @@ public class PlayerController : KinematicBody2D
         velocity = velocity.Normalized() * Speed;
     }
 
+    [Signal]
+    public delegate void MinigameSignal(int difficultyLevel);
+
     public override void _PhysicsProcess(float delta)
     {
         switch (state)
@@ -49,12 +52,23 @@ public class PlayerController : KinematicBody2D
         }
     }
 
+    public void OnMinigameExit(int SuccessState)
+    {
+        GD.Print("exit minigame");
+    }
+
+
     public void OnReplicatorInteract()
     {
         if (InReplicatorRoom)
         {
             state = PlayerState.Minigame;
-            //TODO: load minigame scene somehow
+            var scene = (PackedScene)GD.Load("res://Minigame.tscn");
+            var node = scene.Instance();
+            this.Connect("MinigameSignal", node, "_on_minigame_enter");
+            node.Connect("minigame_exit", this, nameof(OnMinigameExit));
+            AddChild(node);
+            EmitSignal(nameof(MinigameSignal), 1);
         }
     }
 
