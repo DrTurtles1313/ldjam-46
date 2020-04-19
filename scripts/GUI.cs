@@ -9,6 +9,7 @@ public class GUI : MarginContainer
 	private Label fuelNumber;
 	private Label nanitesNumber;
 	private Label partsNumber;
+	private Label powerNumber;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -16,6 +17,7 @@ public class GUI : MarginContainer
 		fuelNumber = GetNode<Label>("Top/Fuel/Number");
 		nanitesNumber = GetNode<Label>("Top/Nanites/Number");
 		partsNumber = GetNode<Label>("Top/Parts/Number");
+		powerNumber = GetNode<Label>("Top/Power/Number");
 	}
 
 	private void _on_Storage_OnNaniteChange(int Nanites)
@@ -32,7 +34,9 @@ public class GUI : MarginContainer
 	{
 		partsNumber.Text = Fuel.ToString();
 	}
+
+	private void _on_Storage_PowerChanged(int powerConsumption, int maxPower)
+	{
+		powerNumber.Text = String.Format("{0}/{1}", powerConsumption, maxPower);
+	}
 }
-
-
-

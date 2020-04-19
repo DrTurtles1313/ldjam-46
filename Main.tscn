@@ -121,8 +121,16 @@ script = ExtResource( 3 )
 [node name="TickManager" type="Node2D" parent="."]
 script = ExtResource( 1 )
 
-[node name="Timer" type="Timer" parent="TickManager"]
+[node name="MainTickTimer" type="Timer" parent="TickManager"]
 wait_time = 5.0
+autostart = true
+
+[node name="SystemFailureTimer" type="Timer" parent="TickManager"]
+wait_time = 15.0
+autostart = true
+
+[node name="Data Timer" type="Timer" parent="TickManager"]
+wait_time = 420.0
 autostart = true
 
 [node name="Player" type="KinematicBody2D" parent="."]
@@ -143,6 +151,7 @@ current = true
 [node name="GUI" parent="CanvasLayer" instance=ExtResource( 9 )]
 margin_bottom = 54.0
 script = ExtResource( 10 )
+[connection signal="PowerChanged" from="Generator" to="CanvasLayer/GUI" method="_on_Storage_PowerChanged"]
 [connection signal="pressed" from="Generator/Button" to="Player" method="OnSystemInteract" binds= [ 2 ]]
 [connection signal="body_entered" from="Generator/Area2D" to="Player" method="OnRoomEntered" binds= [ 2, true ]]
 [connection signal="body_exited" from="Generator/Area2D" to="Player" method="OnRoomEntered" binds= [ 2, false ]]
@@ -155,4 +164,8 @@ script = ExtResource( 10 )
 [connection signal="pressed" from="Fabricator/Button" to="Player" method="OnSystemInteract" binds= [ 1 ]]
 [connection signal="body_entered" from="Fabricator/Area2D" to="Player" method="OnRoomEntered" binds= [ 1, true ]]
 [connection signal="body_exited" from="Fabricator/Area2D" to="Player" method="OnRoomEntered" binds= [ 1, false ]]
-[connection signal="timeout" from="TickManager/Timer" to="TickManager" method="OnTimerTimeout"]
+[connection signal="OnFuelChange" from="Storage" to="CanvasLayer/GUI" method="_on_Storage_OnFuelChange"]
+[connection signal="OnNaniteChange" from="Storage" to="CanvasLayer/GUI" method="_on_Storage_OnNaniteChange"]
+[connection signal="OnPartsChange" from="Storage" to="CanvasLayer/GUI" method="_on_Storage_OnPartsChange"]
+[connection signal="timeout" from="TickManager/MainTickTimer" to="TickManager" method="OnTimerTimeout"]
+[connection signal="timeout" from="TickManager/SystemFailureTimer" to="TickManager" method="SystemFailure"]

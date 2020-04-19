@@ -42,6 +42,9 @@ public class Generator : MainSystem
 		return 0;
 	}
 
+	[Signal]
+	public delegate void PowerChanged(int powerConsumption, int maxPower);
+
 	public void CalculateRemainingPower()
 	{
 		int powerConsumption = 0;
@@ -52,5 +55,6 @@ public class Generator : MainSystem
 
 		remainingPower = maxPower - powerConsumption;
 		GD.Print(powerConsumption, ", ", remainingPower, "/", maxPower);
+		EmitSignal(nameof(PowerChanged), powerConsumption, maxPower);
 	}
 }
