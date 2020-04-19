@@ -60,6 +60,7 @@
     <Compile Include="scripts\MainSystems\Replicator.cs" />
     <Compile Include="scripts\MainSystems\MainSystem.cs" />
     <Compile Include="scripts\MainSystems\Scoop.cs" />
+    <Compile Include="scripts\MainSystems\SystemPopup.cs" />
     <Compile Include="scripts\PlayerController.cs" />
     <Compile Include="scripts\Storage.cs" />
     <Compile Include="scripts\Tick.cs" />

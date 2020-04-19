@@ -52,6 +52,7 @@ public class Generator : MainSystem
 
 	public void CalculateRemainingPower()
 	{
+		Tick();
 		int powerConsumption = 0;
 		foreach (MainSystem e in GetTree().GetNodesInGroup("MainSystems"))
 		{

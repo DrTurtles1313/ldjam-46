@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/Tick.cs" type="Script" id=1]
 [ext_resource path="res://scripts/MainSystems/Fabricator.cs" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=8]
 [ext_resource path="res://GUI.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scripts/GUI.cs" type="Script" id=10]
+[ext_resource path="res://SystemPopup.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 100, 100 )
@@ -43,6 +44,9 @@ texture = ExtResource( 8 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Generator/Area2D"]
 shape = SubResource( 1 )
 
+[node name="Popup" parent="Generator" instance=ExtResource( 11 )]
+visible = false
+
 [node name="Replicator" type="Node2D" parent="." groups=[
 "MainSystems",
 ]]
@@ -66,6 +70,9 @@ texture = ExtResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Replicator/Area2D"]
 shape = SubResource( 1 )
+
+[node name="Popup" parent="Replicator" instance=ExtResource( 11 )]
+visible = false
 
 [node name="Scoop" type="Node2D" parent="." groups=[
 "MainSystems",
@@ -91,6 +98,9 @@ texture = ExtResource( 8 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scoop/Area2D"]
 shape = SubResource( 1 )
 
+[node name="Popup" parent="Scoop" instance=ExtResource( 11 )]
+visible = false
+
 [node name="Fabricator" type="Node2D" parent="." groups=[
 "MainSystems",
 ]]
@@ -115,6 +125,9 @@ texture = ExtResource( 8 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Fabricator/Area2D"]
 shape = SubResource( 1 )
 
+[node name="Popup" parent="Fabricator" instance=ExtResource( 11 )]
+visible = false
+
 [node name="Storage" type="Node2D" parent="."]
 script = ExtResource( 3 )
 
@@ -127,7 +140,6 @@ autostart = true
 
 [node name="SystemFailureTimer" type="Timer" parent="TickManager"]
 wait_time = 15.0
-autostart = true
 
 [node name="Data Timer" type="Timer" parent="TickManager"]
 wait_time = 420.0
@@ -151,18 +163,34 @@ current = true
 [node name="GUI" parent="CanvasLayer" instance=ExtResource( 9 )]
 margin_bottom = 54.0
 script = ExtResource( 10 )
+[connection signal="EfficiencyChanged" from="Generator" to="Generator/Popup" method="OnEfficiencyChanged"]
 [connection signal="PowerChanged" from="Generator" to="CanvasLayer/GUI" method="_on_Storage_PowerChanged"]
+[connection signal="StateChanged" from="Generator" to="Generator/Popup" method="OnStateChanged"]
 [connection signal="pressed" from="Generator/Button" to="Player" method="OnSystemInteract" binds= [ 2 ]]
+[connection signal="body_entered" from="Generator/Area2D" to="Generator/Popup" method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="Generator/Area2D" to="Player" method="OnRoomEntered" binds= [ 2, true ]]
+[connection signal="body_exited" from="Generator/Area2D" to="Generator/Popup" method="_on_Area2D_body_exited"]
 [connection signal="body_exited" from="Generator/Area2D" to="Player" method="OnRoomEntered" binds= [ 2, false ]]
+[connection signal="EfficiencyChanged" from="Replicator" to="Replicator/Popup" method="OnEfficiencyChanged"]
+[connection signal="StateChanged" from="Replicator" to="Replicator/Popup" method="OnStateChanged"]
 [connection signal="pressed" from="Replicator/Button" to="Player" method="OnSystemInteract" binds= [ 0 ]]
+[connection signal="body_entered" from="Replicator/Area2D" to="Replicator/Popup" method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="Replicator/Area2D" to="Player" method="OnRoomEntered" binds= [ 0, true ]]
+[connection signal="body_exited" from="Replicator/Area2D" to="Replicator/Popup" method="_on_Area2D_body_exited"]
 [connection signal="body_exited" from="Replicator/Area2D" to="Player" method="OnRoomEntered" binds= [ 0, false ]]
+[connection signal="EfficiencyChanged" from="Scoop" to="Scoop/Popup" method="OnEfficiencyChanged"]
+[connection signal="StateChanged" from="Scoop" to="Scoop/Popup" method="OnStateChanged"]
 [connection signal="pressed" from="Scoop/Button" to="Player" method="OnSystemInteract" binds= [ 3 ]]
+[connection signal="body_entered" from="Scoop/Area2D" to="Scoop/Popup" method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="Scoop/Area2D" to="Player" method="OnRoomEntered" binds= [ 3, true ]]
+[connection signal="body_exited" from="Scoop/Area2D" to="Scoop/Popup" method="_on_Area2D_body_exited"]
 [connection signal="body_exited" from="Scoop/Area2D" to="Player" method="OnRoomEntered" binds= [ 3, false ]]
+[connection signal="EfficiencyChanged" from="Fabricator" to="Fabricator/Popup" method="OnEfficiencyChanged"]
+[connection signal="StateChanged" from="Fabricator" to="Fabricator/Popup" method="OnStateChanged"]
 [connection signal="pressed" from="Fabricator/Button" to="Player" method="OnSystemInteract" binds= [ 1 ]]
+[connection signal="body_entered" from="Fabricator/Area2D" to="Fabricator/Popup" method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="Fabricator/Area2D" to="Player" method="OnRoomEntered" binds= [ 1, true ]]
+[connection signal="body_exited" from="Fabricator/Area2D" to="Fabricator/Popup" method="_on_Area2D_body_exited"]
 [connection signal="body_exited" from="Fabricator/Area2D" to="Player" method="OnRoomEntered" binds= [ 1, false ]]
 [connection signal="OnFuelChange" from="Storage" to="CanvasLayer/GUI" method="_on_Storage_OnFuelChange"]
 [connection signal="OnNaniteChange" from="Storage" to="CanvasLayer/GUI" method="_on_Storage_OnNaniteChange"]
