@@ -13,7 +13,16 @@ public enum Minigame
 	Replicator,
 	Fabricator,
 	Generator,
-	Scoop
+	Scoop,
+	Null
+}
+
+public enum SuccessState
+{
+	NOATTEMPT, // no repair attempt was made, minigame was left
+	BOTCH, // brings system online, damages efficiency
+	PASSABLE, // only brings system online
+	SUCCESS // brings system online, restores efficiency
 }
 
 public class PlayerController : KinematicBody2D
@@ -25,6 +34,7 @@ public class PlayerController : KinematicBody2D
 	bool InFabricatorRoom = false;
 	bool InGeneratorRoom = false;
 	bool InScoopRoom = false;
+	Minigame activeSystem = Minigame.Null;
 
 	Vector2 velocity = new Vector2();
 
@@ -64,10 +74,28 @@ public class PlayerController : KinematicBody2D
 		}
 	}
 
-	public void OnMinigameExit(int SuccessState)
+	public void OnMinigameExit(SuccessState successState)
 	{
-		GD.Print("exit minigame CS SuccessState", SuccessState);
+		GD.Print("exit minigame CS SuccessState: ", successState);
 		state = PlayerState.Idle;
+		MainSystem system = GetNode<MainSystem>(String.Format("../{0}", activeSystem.ToString()));
+		switch (successState)
+		{
+			case SuccessState.BOTCH:
+				system.Repair();
+				system.ChangeEfficiency(-0.2f);
+				break;
+			case SuccessState.SUCCESS:
+				system.Repair();
+				system.ChangeEfficiency(0.2f);
+				break;
+			case SuccessState.PASSABLE:
+				system.Repair();
+				break;
+			case SuccessState.NOATTEMPT:
+			default:
+				break;
+		}
 	}
 
 
@@ -115,7 +143,7 @@ public class PlayerController : KinematicBody2D
 				break;
 
 			case (int)Minigame.Scoop:
-				if (InGeneratorRoom)
+				if (InScoopRoom)
 				{
 					state = PlayerState.Minigame;
 					var scene = (PackedScene)GD.Load("res://Minigame.tscn");
@@ -141,18 +169,22 @@ public class PlayerController : KinematicBody2D
 			{
 				case (int)Minigame.Fabricator:
 					GD.Print("entered Fabricator room");
+					activeSystem = Minigame.Fabricator;
 					InFabricatorRoom = true;
 					break;
 				case (int)Minigame.Generator:
 					GD.Print("entered Generator room");
+					activeSystem = Minigame.Generator;
 					InGeneratorRoom = true;
 					break;
 				case (int)Minigame.Replicator:
 					GD.Print("entered replicator room");
+					activeSystem = Minigame.Replicator;
 					InReplicatorRoom = true;
 					break;
 				case (int)Minigame.Scoop:   
 					GD.Print("entered Scoop room");
+					activeSystem = Minigame.Scoop;
 					InScoopRoom = true;
 					break;
 				default:
@@ -161,6 +193,7 @@ public class PlayerController : KinematicBody2D
 		}
 		else
 		{
+			activeSystem = Minigame.Null;
 			switch (room)
 			{
 				case (int)Minigame.Fabricator:

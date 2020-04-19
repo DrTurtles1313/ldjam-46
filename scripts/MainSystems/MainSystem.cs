@@ -12,8 +12,10 @@ public enum MainSystemState
 public abstract class MainSystem : Node2D
 {
     public MainSystemState state = MainSystemState.Idle;
+    public MainSystemState lastState = MainSystemState.Idle;
     public abstract int idlePowerConsumption { get; set; }
     public abstract int activePowerConsumption { get; set; }
+    public abstract float efficiency {get; set;}
     public Generator generator;
 
     public abstract int GetPowerConsumption();
@@ -35,6 +37,7 @@ public abstract class MainSystem : Node2D
             case MainSystemState.Idle:
                 if (activePowerConsumption - idlePowerConsumption <= generator.remainingPower)
                 {
+                    lastState = state;
                     state = MainSystemState.Active;
                     generator.CalculateRemainingPower();
                     return true;
@@ -46,6 +49,7 @@ public abstract class MainSystem : Node2D
             case MainSystemState.Disabled:
                 if (activePowerConsumption <= generator.GetPowerConsumption())
                 {
+                    lastState = state;
                     state = MainSystemState.Active;
                     generator.CalculateRemainingPower();
                     return true;
@@ -69,12 +73,14 @@ public abstract class MainSystem : Node2D
             case MainSystemState.Idle:
                 return false;
             case MainSystemState.Active:
+                lastState = state;
                 state = MainSystemState.Idle;
                 generator.CalculateRemainingPower();
                 return true;
             case MainSystemState.Disabled:
                 if (idlePowerConsumption <= generator.remainingPower)
                 {
+                    lastState = state;
                     state = MainSystemState.Active;
                     generator.CalculateRemainingPower();
                     return true;
@@ -96,6 +102,7 @@ public abstract class MainSystem : Node2D
         {
             case MainSystemState.Active:
             case MainSystemState.Idle:
+                lastState = state;
                 state = MainSystemState.Disabled;
                 generator.CalculateRemainingPower();
                 return true;
@@ -116,6 +123,7 @@ public abstract class MainSystem : Node2D
             case MainSystemState.Active:
             case MainSystemState.Idle:
             case MainSystemState.Disabled:
+                lastState = state;
                 state = MainSystemState.Broken;
                 generator.CalculateRemainingPower();
                 return true;
@@ -123,5 +131,16 @@ public abstract class MainSystem : Node2D
                 return false;
         }
         return false;
+    }
+
+    public void Repair()
+    {
+        state = MainSystemState.Disabled;
+    }
+
+    public void ChangeEfficiency(float change)
+    {
+        efficiency += change;
+        GD.Print(efficiency);
     }
 }

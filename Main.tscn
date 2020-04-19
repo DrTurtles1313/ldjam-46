@@ -22,7 +22,7 @@ extents = Vector2( 35, 35 )
 [node name="Generator" type="Node2D" parent="." groups=[
 "MainSystems",
 ]]
-position = Vector2( 685.814, 65.1605 )
+position = Vector2( 683.093, -72.2375 )
 script = ExtResource( 6 )
 
 [node name="Button" type="Button" parent="Generator"]
@@ -46,7 +46,7 @@ shape = SubResource( 1 )
 [node name="Replicator" type="Node2D" parent="." groups=[
 "MainSystems",
 ]]
-position = Vector2( 105.472, 74.4128 )
+position = Vector2( 144.923, -106.517 )
 script = ExtResource( 4 )
 
 [node name="Button" type="Button" parent="Replicator"]
@@ -70,7 +70,7 @@ shape = SubResource( 1 )
 [node name="Scoop" type="Node2D" parent="." groups=[
 "MainSystems",
 ]]
-position = Vector2( 682.556, 346.98 )
+position = Vector2( 756.016, 333.376 )
 script = ExtResource( 5 )
 
 [node name="Button" type="Button" parent="Scoop"]
@@ -94,7 +94,7 @@ shape = SubResource( 1 )
 [node name="Fabricator" type="Node2D" parent="." groups=[
 "MainSystems",
 ]]
-position = Vector2( 140.095, 382.818 )
+position = Vector2( -87.0879, 312.078 )
 script = ExtResource( 2 )
 
 [node name="Button" type="Button" parent="Fabricator"]

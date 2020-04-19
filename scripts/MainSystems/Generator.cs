@@ -6,7 +6,7 @@ public class Generator : MainSystem
 	public override int idlePowerConsumption {get; set;}
 	public override int activePowerConsumption {get; set;}
 
-	public float efficiency = 1f;
+	public override float efficiency {get; set;}
 
 	public float activeBoost = 1.5f;
 	public int basePower = 10;
@@ -16,6 +16,11 @@ public class Generator : MainSystem
 
 	public int baseFuelConsumption = 1;
 	public int activeFuelConsumption = 3;
+
+	public override void _Ready()
+	{
+		efficiency = 1f;
+	}
 
 	public void Tick()
 	{
@@ -54,7 +59,6 @@ public class Generator : MainSystem
 		}
 
 		remainingPower = maxPower - powerConsumption;
-		GD.Print(powerConsumption, ", ", remainingPower, "/", maxPower);
 		EmitSignal(nameof(PowerChanged), powerConsumption, maxPower);
 	}
 }

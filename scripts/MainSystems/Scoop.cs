@@ -5,11 +5,13 @@ public class Scoop : MainSystem
 {
     public override int idlePowerConsumption {get; set;}
     public override int activePowerConsumption {get; set;}
+    public override float efficiency {get; set;}
 
     public override void _Ready()
     {
         idlePowerConsumption = 3;
         activePowerConsumption = 4;
+        efficiency = 1f;
     }
 
     public void Tick()
@@ -17,11 +19,11 @@ public class Scoop : MainSystem
         switch (state)
         {
             case MainSystemState.Idle:
-                GetNode<Storage>("../Storage").AddFuel(1);
+                GetNode<Storage>("../Storage").AddFuel((int)(1 * efficiency));
                 break;
 
             case MainSystemState.Active:
-                GetNode<Storage>("../Storage").AddFuel(2);
+                GetNode<Storage>("../Storage").AddFuel((int)(2 * efficiency));
                 break;
 
             case MainSystemState.Disabled:

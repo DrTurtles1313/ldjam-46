@@ -21,19 +21,27 @@ public class Tick : Node2D
 			switch (random.Next(3))
 			{
 				case 0:
-					GetNode<Fabricator>("../Fabricator").Broken();
+					Fabricator fabricator = GetNode<Fabricator>("../Fabricator");
+					fabricator.Broken();
+					fabricator.ChangeEfficiency(-0.2f);
 					GD.Print("Fabricator Broken");
 					break;
 				case 1:
-					GetNode<Replicator>("../Replicator").Broken();
+					Replicator replicator = GetNode<Replicator>("../Replicator");
+					replicator.Broken();
+					replicator.ChangeEfficiency(-0.2f);
 					GD.Print("Replicator Broken");
 					break;
 				case 2:
-					GetNode<Scoop>("../Scoop").Broken();
+					Scoop scoop = GetNode<Scoop>("../Scoop");
+					scoop.Broken();
+					scoop.ChangeEfficiency(-0.2f);
 					GD.Print("Scoop Broken");
 					break;
 				case 3:
-					GetNode<Generator>("../Generator").Broken();
+					Generator generator = GetNode<Generator>("../Generator");
+					generator.Broken();
+					generator.ChangeEfficiency(-0.2f);
 					GD.Print("Generator Broken");
 					GetTree().CallGroup("MainSystems", "Disabled");
 					break;

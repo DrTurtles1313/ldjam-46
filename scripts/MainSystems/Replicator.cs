@@ -5,11 +5,13 @@ public class Replicator : MainSystem
 {    
     public override int idlePowerConsumption {get; set;}
     public override int activePowerConsumption {get; set;}
+    public override float efficiency {get; set;}
 
     public override void _Ready()
     {
         idlePowerConsumption = 3;
         activePowerConsumption = 5;
+        efficiency = 1f;
     }
 
     public void Tick()
@@ -17,11 +19,11 @@ public class Replicator : MainSystem
         switch (state)
         {
             case MainSystemState.Idle:
-                GetNode<Storage>("../Storage").AddNanites(1);
+                GetNode<Storage>("../Storage").AddNanites((int)(1 * efficiency));
                 break;
 
             case MainSystemState.Active:
-                GetNode<Storage>("../Storage").AddNanites(2);
+                GetNode<Storage>("../Storage").AddNanites((int)(2 * efficiency));
                 break;
 
             case MainSystemState.Disabled:

@@ -3,14 +3,15 @@ using System;
 
 public class Fabricator : MainSystem
 {
-    public float efficiency = 1f;
     public int failureReduction = 20;
 
     public override int idlePowerConsumption {get; set;}
     public override int activePowerConsumption {get; set;}
+    public override float efficiency {get; set;}
 
     public override void _Ready()
     {
+        efficiency = 1f;
         idlePowerConsumption = 3;
         activePowerConsumption = 5;
     }
