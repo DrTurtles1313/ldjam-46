@@ -22,7 +22,26 @@ extents = Vector2( 35, 35 )
 [node name="Generator" type="Node2D" parent="." groups=[
 "MainSystems",
 ]]
+position = Vector2( 685.814, 65.1605 )
 script = ExtResource( 6 )
+
+[node name="Button" type="Button" parent="Generator"]
+margin_left = -30.0
+margin_top = -30.0
+margin_right = 30.0
+margin_bottom = 30.0
+action_mode = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="icon" type="Sprite" parent="Generator"]
+texture = ExtResource( 8 )
+
+[node name="Area2D" type="Area2D" parent="Generator"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Generator/Area2D"]
+shape = SubResource( 1 )
 
 [node name="Replicator" type="Node2D" parent="." groups=[
 "MainSystems",
@@ -51,12 +70,50 @@ shape = SubResource( 1 )
 [node name="Scoop" type="Node2D" parent="." groups=[
 "MainSystems",
 ]]
+position = Vector2( 682.556, 346.98 )
 script = ExtResource( 5 )
+
+[node name="Button" type="Button" parent="Scoop"]
+margin_left = -30.0
+margin_top = -30.0
+margin_right = 30.0
+margin_bottom = 30.0
+action_mode = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="icon" type="Sprite" parent="Scoop"]
+texture = ExtResource( 8 )
+
+[node name="Area2D" type="Area2D" parent="Scoop"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Scoop/Area2D"]
+shape = SubResource( 1 )
 
 [node name="Fabricator" type="Node2D" parent="." groups=[
 "MainSystems",
 ]]
+position = Vector2( 140.095, 382.818 )
 script = ExtResource( 2 )
+
+[node name="Button" type="Button" parent="Fabricator"]
+margin_left = -30.0
+margin_top = -30.0
+margin_right = 30.0
+margin_bottom = 30.0
+action_mode = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="icon" type="Sprite" parent="Fabricator"]
+texture = ExtResource( 8 )
+
+[node name="Area2D" type="Area2D" parent="Fabricator"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fabricator/Area2D"]
+shape = SubResource( 1 )
 
 [node name="Storage" type="Node2D" parent="."]
 script = ExtResource( 3 )
@@ -86,10 +143,16 @@ current = true
 [node name="GUI" parent="CanvasLayer" instance=ExtResource( 9 )]
 margin_bottom = 54.0
 script = ExtResource( 10 )
-[connection signal="pressed" from="Replicator/Button" to="Player" method="OnReplicatorInteract"]
-[connection signal="body_entered" from="Replicator/Area2D" to="Player" method="ReplicatorRoomEntered"]
-[connection signal="body_exited" from="Replicator/Area2D" to="Player" method="ReplicatorRoomExited"]
-[connection signal="OnFuelChange" from="Storage" to="CanvasLayer/GUI" method="_on_Storage_OnFuelChange"]
-[connection signal="OnNaniteChange" from="Storage" to="CanvasLayer/GUI" method="_on_Storage_OnNaniteChange"]
-[connection signal="OnPartsChange" from="Storage" to="CanvasLayer/GUI" method="_on_Storage_OnPartsChange"]
+[connection signal="pressed" from="Generator/Button" to="Player" method="OnSystemInteract" binds= [ 2 ]]
+[connection signal="body_entered" from="Generator/Area2D" to="Player" method="OnRoomEntered" binds= [ 2, true ]]
+[connection signal="body_exited" from="Generator/Area2D" to="Player" method="OnRoomEntered" binds= [ 2, false ]]
+[connection signal="pressed" from="Replicator/Button" to="Player" method="OnSystemInteract" binds= [ 0 ]]
+[connection signal="body_entered" from="Replicator/Area2D" to="Player" method="OnRoomEntered" binds= [ 0, true ]]
+[connection signal="body_exited" from="Replicator/Area2D" to="Player" method="OnRoomEntered" binds= [ 0, false ]]
+[connection signal="pressed" from="Scoop/Button" to="Player" method="OnSystemInteract" binds= [ 3 ]]
+[connection signal="body_entered" from="Scoop/Area2D" to="Player" method="OnRoomEntered" binds= [ 3, true ]]
+[connection signal="body_exited" from="Scoop/Area2D" to="Player" method="OnRoomEntered" binds= [ 3, false ]]
+[connection signal="pressed" from="Fabricator/Button" to="Player" method="OnSystemInteract" binds= [ 1 ]]
+[connection signal="body_entered" from="Fabricator/Area2D" to="Player" method="OnRoomEntered" binds= [ 1, true ]]
+[connection signal="body_exited" from="Fabricator/Area2D" to="Player" method="OnRoomEntered" binds= [ 1, false ]]
 [connection signal="timeout" from="TickManager/Timer" to="TickManager" method="OnTimerTimeout"]
