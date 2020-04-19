@@ -19,11 +19,11 @@ public class Replicator : MainSystem
         switch (state)
         {
             case MainSystemState.Idle:
-                GetNode<Storage>("../Storage").AddNanites((int)(1 * efficiency));
+                GetNode<Storage>("../Storage").AddNanites(1 * efficiency);
                 break;
 
             case MainSystemState.Active:
-                GetNode<Storage>("../Storage").AddNanites((int)(2 * efficiency));
+                GetNode<Storage>("../Storage").AddNanites(2 * efficiency);
                 break;
 
             case MainSystemState.Disabled:

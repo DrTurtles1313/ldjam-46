@@ -75,19 +75,35 @@ __meta__ = {
 
 [node name="Power" type="HBoxContainer" parent="Top"]
 margin_left = 429.0
-margin_right = 598.0
+margin_right = 594.0
 margin_bottom = 14.0
 
 [node name="Label" type="Label" parent="Top/Power"]
-margin_right = 136.0
+margin_right = 132.0
 margin_bottom = 14.0
-text = "Power Consumption: "
+text = "Power Consumption:"
 
 [node name="Number" type="Label" parent="Top/Power"]
-margin_left = 140.0
-margin_right = 169.0
+margin_left = 136.0
+margin_right = 165.0
 margin_bottom = 14.0
 text = "0/10"
+
+[node name="Storage" type="HBoxContainer" parent="Top"]
+margin_left = 614.0
+margin_right = 739.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="Top/Storage"]
+margin_right = 92.0
+margin_bottom = 14.0
+text = "Storage Space:"
+
+[node name="Number" type="Label" parent="Top/Storage"]
+margin_left = 96.0
+margin_right = 125.0
+margin_bottom = 14.0
+text = "0/50"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_left = 20.0

@@ -19,11 +19,11 @@ public class Scoop : MainSystem
         switch (state)
         {
             case MainSystemState.Idle:
-                GetNode<Storage>("../Storage").AddFuel((int)(1 * efficiency));
+                GetNode<Storage>("../Storage").AddFuel(1 * efficiency);
                 break;
 
             case MainSystemState.Active:
-                GetNode<Storage>("../Storage").AddFuel((int)(2 * efficiency));
+                GetNode<Storage>("../Storage").AddFuel(2 * efficiency);
                 break;
 
             case MainSystemState.Disabled:

@@ -3,31 +3,28 @@ using System.Collections.Generic;
 
 public class Storage : Node2D
 {
-	public int size = 50;
-	private List<int> storage = new List<int>();
-	public int nanites = 0;
-	public int fuel = 0;
-	public int parts = 0;
+	public float size = 50f;
+	public float nanites = 0;
+	public float fuel = 0;
+	public float parts = 0;
+	public float usedSpace = 0;
 
 	[Signal]
-	public delegate void OnNaniteChange(int Nanites);
+	public delegate void OnNaniteChange(float Nanites, float usedSpace, float size);
 	
 	[Signal]
-	public delegate void OnPartsChange(int Parts);
+	public delegate void OnPartsChange(float Parts, float usedSpace, float size);
 	
 	[Signal]
-	public delegate void OnFuelChange(int Fuel);
+	public delegate void OnFuelChange(float Fuel, float usedSpace, float size);
 
-	public bool AddParts(int amount)
+	public bool AddParts(float amount)
 	{
-		if (storage.Count + amount < size)
+		if (usedSpace + amount < size)
 		{
-			for (int i = 0; i < amount; i++)
-			{
-				storage.Add(0);
-				parts++;
-			}
-			EmitSignal(nameof(OnPartsChange), parts);
+			usedSpace += amount;
+			parts += amount;
+			EmitSignal(nameof(OnPartsChange), parts, usedSpace, size);
 			return true;
 		}
 		else
@@ -36,16 +33,13 @@ public class Storage : Node2D
 		}
 	}
 
-	public bool AddNanites(int amount)
+	public bool AddNanites(float amount)
 	{
-		if (storage.Count + amount < size)
+		if (usedSpace + amount < size)
 		{
-			for (int i = 0; i < amount; i++)
-			{
-				storage.Add(1);
-				nanites++;
-			}
-			EmitSignal(nameof(OnNaniteChange), nanites);
+			usedSpace += amount;
+			nanites += amount;
+			EmitSignal(nameof(OnNaniteChange), nanites, usedSpace, size);
 			return true;
 		}
 		else
@@ -54,16 +48,13 @@ public class Storage : Node2D
 		}
 	}
 
-	public bool AddFuel(int amount)
+	public bool AddFuel(float amount)
 	{
-		if (storage.Count + amount < size)
+		if (usedSpace + amount < size)
 		{
-			for (int i = 0; i < amount; i++)
-			{
-				storage.Add(2);
-				fuel++;
-			}
-			EmitSignal(nameof(OnFuelChange), fuel);
+			usedSpace += amount;
+			fuel += amount;
+			EmitSignal(nameof(OnFuelChange), fuel, usedSpace, size);
 			return true;
 		}
 		else
@@ -72,16 +63,13 @@ public class Storage : Node2D
 		}
 	}
 
-	public bool RemoveParts(int amount)
+	public bool RemoveParts(float amount)
 	{
-		if (storage.Contains(0))
+		if (amount <= parts)
 		{
-			for (int i = 0; i < amount; i++)
-			{
-				storage.Remove(0);
-				parts--;
-			}
-			EmitSignal(nameof(OnPartsChange), parts);
+			usedSpace -= amount;
+			parts -= amount;
+			EmitSignal(nameof(OnPartsChange), parts, usedSpace, size);
 			return true;
 		}
 		else
@@ -90,16 +78,13 @@ public class Storage : Node2D
 		}
 	}
 
-	public bool RemoveNanites(int amount)
+	public bool RemoveNanites(float amount)
 	{
-		if (storage.Contains(1))
+		if (amount <= nanites)
 		{
-			for (int i = 0; i < amount; i++)
-			{
-				storage.Remove(1);
-				nanites--;
-			}
-			EmitSignal(nameof(OnNaniteChange), nanites);
+			usedSpace -= amount;
+			nanites -= amount;
+			EmitSignal(nameof(OnNaniteChange), nanites, usedSpace, size);
 			return true;
 		}
 		else
@@ -108,16 +93,13 @@ public class Storage : Node2D
 		}
 	}
 
-	public bool RemoveFuel(int amount)
+	public bool RemoveFuel(float amount)
 	{
-		if (storage.Contains(2))
+		if (amount <= fuel)
 		{
-			for (int i = 0; i < amount; i++)
-			{
-				storage.Remove(2);
-				fuel--;
-			}
-			EmitSignal(nameof(OnFuelChange), fuel);
+			usedSpace -= amount;
+			fuel -= amount;
+			EmitSignal(nameof(OnFuelChange), fuel, usedSpace, size);
 			return true;
 		}
 		else

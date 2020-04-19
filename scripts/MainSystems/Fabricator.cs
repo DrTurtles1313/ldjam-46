@@ -26,7 +26,7 @@ public class Fabricator : MainSystem
 
             case MainSystemState.Active:
                 failureReduction = 25;
-                GetNode<Storage>("../Storage").AddParts((int)(2 * efficiency));
+                GetNode<Storage>("../Storage").AddParts(2 * efficiency);
                 break;
 
             case MainSystemState.Disabled:
