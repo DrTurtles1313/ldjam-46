@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="scripts\GUI.cs" />
     <Compile Include="scripts\MainSystems\Fabricator.cs" />
     <Compile Include="scripts\MainSystems\Generator.cs" />
     <Compile Include="scripts\MainSystems\Replicator.cs" />

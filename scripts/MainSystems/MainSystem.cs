@@ -62,6 +62,7 @@ public abstract class MainSystem : Node2D
     /// Set system state to idle. return false if not possible
     public bool Idle()
     {
+        generator = GetNode<Generator>("../Generator");
         switch (state)
         {
             case MainSystemState.Broken:
@@ -90,6 +91,7 @@ public abstract class MainSystem : Node2D
     /// sets the system state to disabled, returns false if not possible;
     public bool Disabled()
     {
+        generator = GetNode<Generator>("../Generator");
         switch (state)
         {
             case MainSystemState.Active:
@@ -108,6 +110,7 @@ public abstract class MainSystem : Node2D
     ///Sets the system state to broken, returns false if not possible;
     public bool Broken()
     {
+        generator = GetNode<Generator>("../Generator");
         switch (state)
         {
             case MainSystemState.Active:

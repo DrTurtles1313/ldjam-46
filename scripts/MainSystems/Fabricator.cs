@@ -3,6 +3,9 @@ using System;
 
 public class Fabricator : MainSystem
 {
+    public float efficiency = 1f;
+    public int failureReduction = 20;
+
     public override int idlePowerConsumption {get; set;}
     public override int activePowerConsumption {get; set;}
 
@@ -17,13 +20,16 @@ public class Fabricator : MainSystem
         switch (state)
         {
             case MainSystemState.Idle:
+                failureReduction = 20;
                 break;
 
             case MainSystemState.Active:
-                GetNode<Storage>("../Storage").AddParts(2);
+                failureReduction = 25;
+                GetNode<Storage>("../Storage").AddParts((int)(2 * efficiency));
                 break;
 
             case MainSystemState.Disabled:
+                failureReduction = 0;
                 break;
         }
     }
