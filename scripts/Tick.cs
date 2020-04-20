@@ -6,11 +6,15 @@ public class Tick : Node2D
 	int failureRate = 40;
 	Random random = new Random();
 
+	
 	public void OnTimerTimeout()
 	{
 		GetNode<Generator>("../Generator").CalculateRemainingPower();
 		GetTree().CallGroup("MainSystems", "Tick");
-		
+		if (random.Next(100) > 90)
+		{
+			GetNode<EventSystem>("../EventSystem").GenerateEvent(EventType.Transit, 0);
+		}
 	}
 
 	public void SystemFailure()

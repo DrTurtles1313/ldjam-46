@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/Tick.cs" type="Script" id=1]
 [ext_resource path="res://scripts/MainSystems/Fabricator.cs" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://GUI.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scripts/GUI.cs" type="Script" id=10]
 [ext_resource path="res://SystemPopup.tscn" type="PackedScene" id=11]
+[ext_resource path="res://EventPopup.tscn" type="PackedScene" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 100, 100 )
@@ -163,6 +164,8 @@ current = true
 [node name="GUI" parent="CanvasLayer" instance=ExtResource( 9 )]
 margin_bottom = 54.0
 script = ExtResource( 10 )
+
+[node name="EventSystem" parent="." instance=ExtResource( 12 )]
 [connection signal="EfficiencyChanged" from="Generator" to="Generator/Popup" method="OnEfficiencyChanged"]
 [connection signal="PowerChanged" from="Generator" to="CanvasLayer/GUI" method="_on_Storage_PowerChanged"]
 [connection signal="StateChanged" from="Generator" to="Generator/Popup" method="OnStateChanged"]
@@ -181,10 +184,10 @@ script = ExtResource( 10 )
 [connection signal="EfficiencyChanged" from="Scoop" to="Scoop/Popup" method="OnEfficiencyChanged"]
 [connection signal="StateChanged" from="Scoop" to="Scoop/Popup" method="OnStateChanged"]
 [connection signal="pressed" from="Scoop/Button" to="Player" method="OnSystemInteract" binds= [ 3 ]]
-[connection signal="body_entered" from="Scoop/Area2D" to="Player" method="OnRoomEntered" binds= [ 3, true ]]
 [connection signal="body_entered" from="Scoop/Area2D" to="Scoop/Popup" method="_on_Area2D_body_entered"]
-[connection signal="body_exited" from="Scoop/Area2D" to="Player" method="OnRoomEntered" binds= [ 3, false ]]
+[connection signal="body_entered" from="Scoop/Area2D" to="Player" method="OnRoomEntered" binds= [ 3, true ]]
 [connection signal="body_exited" from="Scoop/Area2D" to="Scoop/Popup" method="_on_Area2D_body_exited"]
+[connection signal="body_exited" from="Scoop/Area2D" to="Player" method="OnRoomEntered" binds= [ 3, false ]]
 [connection signal="EfficiencyChanged" from="Fabricator" to="Fabricator/Popup" method="OnEfficiencyChanged"]
 [connection signal="StateChanged" from="Fabricator" to="Fabricator/Popup" method="OnStateChanged"]
 [connection signal="pressed" from="Fabricator/Button" to="Player" method="OnSystemInteract" binds= [ 1 ]]

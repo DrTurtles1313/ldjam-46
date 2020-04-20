@@ -1,0 +1,93 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://events/RandomEvent.cs" type="Script" id=1]
+
+[node name="Container" type="VBoxContainer"]
+margin_left = 5.0
+margin_top = 6.0
+margin_right = 291.0
+margin_bottom = 288.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Init" type="VBoxContainer" parent="."]
+margin_right = 286.0
+margin_bottom = 62.0
+
+[node name="EventText" type="Label" parent="Init"]
+margin_right = 286.0
+margin_bottom = 14.0
+text = "Drifting Wreck"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Init"]
+margin_top = 18.0
+margin_right = 286.0
+margin_bottom = 38.0
+text = "Spend some time harvesting parts"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="Init"]
+margin_top = 42.0
+margin_right = 286.0
+margin_bottom = 62.0
+text = "Leave it alone"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Outcome0" type="VBoxContainer" parent="."]
+visible = false
+margin_top = 66.0
+margin_right = 286.0
+margin_bottom = 121.0
+
+[node name="EventText" type="Label" parent="Outcome0"]
+margin_right = 286.0
+margin_bottom = 31.0
+text = "You successfully harvest 10 parts from the wreck, but it has taken some time"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Outcome0"]
+margin_top = 35.0
+margin_right = 286.0
+margin_bottom = 55.0
+text = "Exit"
+
+[node name="Outcome1" type="VBoxContainer" parent="."]
+visible = false
+margin_top = 66.0
+margin_right = 286.0
+margin_bottom = 121.0
+
+[node name="EventText" type="Label" parent="Outcome1"]
+margin_right = 286.0
+margin_bottom = 31.0
+text = "You pass by the wreck and continue on your way"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Outcome1"]
+margin_top = 35.0
+margin_right = 286.0
+margin_bottom = 55.0
+text = "Exit"
+[connection signal="pressed" from="Init/Button" to="." method="ChoicePressed" binds= [ 0, 5, 10.0 ]]
+[connection signal="pressed" from="Init/Button2" to="." method="ChoicePressed" binds= [ 1, 0, 0.0 ]]
+[connection signal="pressed" from="Outcome0/Button" to="." method="exit"]
+[connection signal="pressed" from="Outcome1/Button" to="." method="exit"]
